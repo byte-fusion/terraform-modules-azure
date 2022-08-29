@@ -10,5 +10,5 @@ output "vnet_name" {
 
 output "vnet_subnets" {
   description = "The Virtual Network Subnets" #TODO Is there a better way to output this value?
-  value       = { for k, v in azurerm_subnet.subnets: k => v.id }
+  value       = { for k, v in azurerm_subnet.subnets : k => v.id }
 }
