@@ -53,7 +53,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     service_cidr       = var.network_service_cidr
     pod_cidr           = var.network_pod_cidr
 
-    load_balancer_sku = var.network_load_balancer_sku
+    outbound_type     = var.network_outbound_type
+    load_balancer_sku = var.network_outbound_type == "loadBalancer" ? "standard" : null
   }
 
   identity {
@@ -71,7 +72,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "this" {
   name                   = each.value.name
   orchestrator_version   = each.value.orchestrator_version
   kubernetes_cluster_id  = azurerm_kubernetes_cluster.this.id
-  vnet_subnet_id         = var.node_subnets != null ? var.node_subnets[local.custom_node_pools.name] : null
+  vnet_subnet_id         = var.node_subnets != null ? var.node_subnets[each.value.name] : null
   vm_size                = each.value.vm_size
   enable_host_encryption = each.value.enable_host_encryption
   os_disk_size_gb        = each.value.os_disk_size_gb

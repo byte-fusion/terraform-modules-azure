@@ -84,8 +84,8 @@ variable "network_pod_cidr" {
   default     = null
 }
 
-variable "network_load_balancer_sku" {
-  description = "AKS Load Balancer SKU"
+variable "network_outbound_type" {
+  description = "AKS Outbound Type"
   type        = string
   default     = null
 }
