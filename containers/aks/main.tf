@@ -61,6 +61,10 @@ resource "azurerm_kubernetes_cluster" "this" {
     type         = length(var.identity_ids) > 0 ? "UserAssigned" : "SystemAssigned"
     identity_ids = length(var.identity_ids) > 0 ? var.identity_ids : null
   }
+
+  ingress_application_gateway {
+    gateway_id    = var.ingress_gateway_id
+  }
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "this" {

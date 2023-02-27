@@ -135,6 +135,11 @@ variable "node_pools" {
   }))
 }
 
+variable "ingress_gateway_id" {
+  type    = string
+  default = null
+}
+
 variable "tags" {
   type        = map(string)
   default     = {}
