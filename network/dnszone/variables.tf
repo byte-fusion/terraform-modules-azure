@@ -13,3 +13,9 @@ variable "private_dns_enable" {
   type        = bool
   default     = false
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "A mapping of tags to assign to the resource."
+}

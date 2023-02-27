@@ -17,3 +17,9 @@ variable "dns_vnet_id" {
   description = "VNET ID"
   type        = string
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "A mapping of tags to assign to the resource."
+}

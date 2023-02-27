@@ -5,6 +5,8 @@ resource "azurerm_public_ip" "this" {
   allocation_method   = "Static"
   sku                 = "Standard"
   zones               = var.zones
+
+  tags = var.tags
 }
 
 resource "azurerm_nat_gateway" "this" {
@@ -14,11 +16,15 @@ resource "azurerm_nat_gateway" "this" {
   sku_name                = "Standard"
   idle_timeout_in_minutes = 10
   zones                   = var.zones
+
+  tags = var.tags
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "this" {
   nat_gateway_id       = azurerm_nat_gateway.this.id
   public_ip_address_id = azurerm_public_ip.this.id
+
+  tags = var.tags
 }
 
 resource "azurerm_subnet_nat_gateway_association" "this" {
@@ -26,4 +32,6 @@ resource "azurerm_subnet_nat_gateway_association" "this" {
 
   subnet_id      = each.value
   nat_gateway_id = azurerm_nat_gateway.this.id
+
+  tags = var.tags
 }

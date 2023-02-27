@@ -88,6 +88,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "this" {
   node_taints            = each.value.taints
   zones                  = each.value.availability_zones
 
+  tags = var.tags
+
   # lifecycle {
   #   ignore_changes = [
   #     node_count,

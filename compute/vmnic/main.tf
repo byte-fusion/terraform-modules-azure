@@ -4,6 +4,8 @@ resource "azurerm_public_ip" "this" {
   resource_group_name = var.region
   location            = var.resource_group_name
   allocation_method   = var.public_ip_allocation_method
+
+  tags = var.tags
 }
 
 resource "azurerm_network_interface" "this" {
@@ -18,4 +20,6 @@ resource "azurerm_network_interface" "this" {
 
     public_ip_address_id = (var.public_ip_enable == true) ? azurerm_public_ip.this[0].id : null
   }
+
+  tags = var.tags
 }

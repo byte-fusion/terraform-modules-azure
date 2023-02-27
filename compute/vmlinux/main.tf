@@ -1,5 +1,5 @@
 locals {
-    public_key = (var.ssh_key_autogenerate == true) ? tls_private_key.this[0] : file(var.ssh_key_path)
+  public_key = (var.ssh_key_autogenerate == true) ? tls_private_key.this[0] : file(var.ssh_key_path)
 }
 
 resource "tls_private_key" "this" {
@@ -13,6 +13,8 @@ resource "azurerm_ssh_public_key" "this" {
   resource_group_name = var.resource_group_name
   location            = var.region
   public_key          = local.public_key
+
+  tags = var.tags
 }
 
 resource "azurerm_linux_virtual_machine" "this" {
@@ -22,9 +24,10 @@ resource "azurerm_linux_virtual_machine" "this" {
   size                  = var.size
   admin_username        = var.username
   network_interface_ids = var.network_interface_ids
-#   network_interface_ids = [
-#     azurerm_network_interface.example.id,
-#   ]
+
+  #   network_interface_ids = [
+  #     azurerm_network_interface.example.id,
+  #   ]
 
   admin_ssh_key {
     username   = var.username
@@ -43,4 +46,6 @@ resource "azurerm_linux_virtual_machine" "this" {
     sku       = var.image_reference_sku
     version   = var.image_reference_version
   }
+
+  tags = var.tags
 }

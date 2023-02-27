@@ -134,3 +134,9 @@ variable "node_pools" {
     mode                   = string
   }))
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "A mapping of tags to assign to the resource."
+}
